@@ -1,0 +1,17 @@
+#class {bot} {open}
+
+#var {no_loop} {1}
+#var {no_home} {1}
+#var {hardmode} {0}
+#var {vacuum} {0}
+
+#alias {cl_donate}    {donate all;donate all from bag;donate all from bag 2;donate all from bag 3;donate all from bag 4;..}
+#alias {cl_corpses}   {qtrance smuggle remove corpse/store all>20;=summon;qtrance =give corpse/store corpse>12;..}
+#alias {cl_reagents}  {qtrance buy 100 ginseng/buy 100 goldenrod/buy 100 mandrake>5;buy 50 ginseng;buy 50 mandrake;buy 50 goldenrod;..}
+#alias {cl_study}     {study protection 2;study rope trick;replstudy dream 100;study dream 100;..}
+#alias {cl_deposit}   {deposit all;withdraw 10000;..}
+
+#variable {botpath}   {w;w;w;w;w;w;cl_donate;e;d;w;cl_corpses;d;ne;n;n;d;enter gate;e;enter;cl_study;w;w;enter gate;u;s;s;sw;u;e;u;u;w;w;w;cl_reagents;e;e;n;n;cl_deposit;s;s;e;d;e;e;e;e;e}
+
+#class {bot} {close}
+
