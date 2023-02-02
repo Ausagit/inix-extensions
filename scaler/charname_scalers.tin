@@ -1,0 +1,5 @@
+#class {scalers} {open}
+
+#variable {botscalers} {}
+
+#class {scalers} {close}
