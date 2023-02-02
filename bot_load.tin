@@ -1,0 +1,159 @@
+#class {botload} {kill}
+#class {scalers} {kill}
+#class {botload} {open}
+
+/* Global Bot Variable Initialization */
+#var mobname {}
+#class {scalers} {read} {.tt/char/$ses_name-scalers.tin}
+#variable {scalers_enabled} {1}
+
+/* Set the scaler for the area, e.g. setscaler chess 50 */
+#alias {setscaler}
+{
+    #variable {botscalers[%1]} {%2};
+	#class {scalers} {write} {.tt/char/$ses_name-scalers.tin};
+	#echo {Dungeon %1 scaler set to %2.};
+	botdraw
+}
+
+/* Enable the automatic scaler when starting an area stepper */
+#alias {scaleon}
+{
+	#variable {scalers_enabled} {1};
+	#echo {Scalers enabled.};
+	botdraw
+}
+
+/* Disable the automatic scaler when starting an area stepper */
+#alias {scaleoff}
+{
+	#variable {scalers_enabled} {0};
+	#echo {Scalers disabled.};
+	botdraw
+}
+
+/* Set all scaler levels for currently configured areas */
+#alias {scaleall}
+{
+	#foreach {*botscalers[%*]} {name}
+	{
+		#variable {botscalers[$name]} {%1};
+	};
+	#class {scalers} {write} {.tt/char/$ses_name-scalers.tin};
+	#echo {Existing scalers set to %1.};
+	botdraw
+}
+
+/* Show the currently configured scalers */
+#alias {scalers}
+{
+	#echo {<228> +--------------------------+}<088>;
+
+	#if {$scalers_enabled}
+	{
+		#echo {<228> |<138> Configured Scalers (on)  <228>|<088>};
+	} {
+		#echo {<228> |<138> Configured Scalers (off) <228>|<088>};
+	};
+	
+	#echo {<228> +--------------------------+}<088>;
+	
+	#if {&{botscalers[]} == 0}
+	{
+		#echo {<228> |<178>      No scalers set      <228>|<088>};
+		#echo {<228> +--------------------------+}<088>
+	};
+	#else
+	{
+		#foreach {*botscalers[%*]} {name}
+		{
+			#format {scv} {%-3d} {$botscalers[$name]};
+			#format {scn} {%-18s} {$name};
+			#echo {<228> |<148> $scv - $scn <088><228>|<088>};
+		};
+
+		#echo { <228>+--------------------------+}<088>
+	}
+}
+/* End Scaler Code */
+
+/* Load specific stepper file */
+#alias {- %1}
+{
+	#var no_home 0;
+	#var no_loop 0;
+	#var hardmode 0;
+	#var vacuum 1;
+	#if {"%1" == "miner"}
+	{
+		#read .tt/3k/craft/miner.tin
+	};
+	#else
+	{
+		#var bots[stepper] %1;
+		#read .tt/3k/bots/%1.tin;
+		#read .tt/3k/bots/bot_main.tin;
+
+		#nop Added for scalers;
+		#if {$botscalers[%1]} { scaler $botscalers[%1]; }
+	}
+}
+
+/* Resume a stepper after a disconnect DisConnectResume */
+#alias {.dcr}
+{
+	#map run $bots[vnum];
+        - $bots[stepper];
+        #delay {path_position} {#path goto $bots[position]} {0.5};
+        #delay {stepper_start} {..} {2}
+}
+
+/* Party Variable*/
+#var party {}
+
+#NOP Add party member to list
+#NOP NOTE: With disguised players, you should add an appropriote short desc: i.e., "pa Black cat"
+#alias pa {#list party add %0}
+
+#NOP Remove party member from list
+#NOP Note: For multi-named (disguised characters manually added), use braces: i.e., "pr {Black cat}"
+#alias pr
+{
+        #list party find %0 party_index;
+        #list party delete $party_index
+}
+
+#NOP Auto build party variable based off of party member list
+#action {^Name         Location                                  Creator$}
+{
+	#action {^%w %+ (%w%s)} {
+		#var {party_member} {%%1};
+		#var party_found 0;
+		#list party find $party_member party_found;
+		#if {$party_found == 0} {
+			#list party add $party_member
+		}
+	} {1};
+	#delay {party_capture} {
+		#unaction {^%w %+ (%w%s)};
+	} {0.5}
+}
+
+#NOP Auto add players on rally
+
+#NOP Auto remove players on pboot or pquit
+
+
+/* Low priority aliases to mute output from mud */
+#alias {.bot%*} {#showme !bot is not active} {9}
+#alias {.stop%*} {
+	#if {"$miner" == "on"} {
+		#class miner kill
+	} {
+		#showme !Bot is not active
+	}
+} {9}
+#alias {.resume%*} {#showme !Bot is not active} {9}
+#alias {killbot%*} {#showme !Bot is not active} {9}
+
+#class {botload} {close}
