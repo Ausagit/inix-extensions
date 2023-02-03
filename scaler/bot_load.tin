@@ -37,7 +37,7 @@
 {
 	#foreach {*botscalers[%*]} {name}
 	{
-		#variable {botscalers[$name]} {%1};
+		#variable {botscalers[$name]} {%1}
 	};
 	#class {scalers} {write} {.tt/char/$ses_name-scalers.tin};
 	#echo {Existing scalers set to %1.};
@@ -51,9 +51,9 @@
 
 	#if {$scalers_enabled}
 	{
-		#echo {<228> |<138> Configured Scalers (on)  <228>|<088>};
+		#echo {<228> |<138> Configured Scalers (on)  <228>|<088>}
 	} {
-		#echo {<228> |<138> Configured Scalers (off) <228>|<088>};
+		#echo {<228> |<138> Configured Scalers (off) <228>|<088>}
 	};
 	
 	#echo {<228> +--------------------------+}<088>;
@@ -62,16 +62,13 @@
 	{
 		#echo {<228> |<178>      No scalers set      <228>|<088>};
 		#echo {<228> +--------------------------+}<088>
-	};
-	#else
-	{
+	} {
 		#foreach {*botscalers[%*]} {name}
 		{
 			#format {scv} {%-3d} {$botscalers[$name]};
 			#format {scn} {%-18s} {$name};
-			#echo {<228> |<148> $scv - $scn <088><228>|<088>};
+			#echo {<228> |<148> $scv - $scn <088><228>|<088>}
 		};
-
 		#echo { <228>+--------------------------+}<088>
 	}
 }
@@ -95,7 +92,7 @@
 		#read .tt/3k/bots/bot_main.tin;
 
 		#nop Added for scalers;
-		#if {$scalers_enabled && $botscalers[%1]} { scaler $botscalers[%1]; }
+		#if {$scalers_enabled && $botscalers[%1]} { scaler $botscalers[%1] }
 	}
 }
 
