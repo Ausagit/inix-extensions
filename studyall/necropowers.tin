@@ -13,17 +13,17 @@
 #variable {powerstudy}
 {
 	{1} {{name}{protection} {qty}{5}}
-    {2} {{name}{animate dead} {qty}{2}}
+	{2} {{name}{animate dead} {qty}{2}}
 	{3} {{name}{soulbind} {qty}{5}}
-    {4} {{name}{unholy ground} {qty}{5}}
+	{4} {{name}{unholy ground} {qty}{5}}
 	{5} {{name}{rope trick} {qty}{5}}
-    {6} {{name}{shift} {qty}{5}}
-    {7} {{name}{will} {qty}{5}}
+	{6} {{name}{shift} {qty}{5}}
+	{7} {{name}{will} {qty}{5}}
 	{8} {{name}{dispell} {qty}{5}}
 	{9} {{name}{turn undead} {qty}{5}}
-    {10} {{name}{daemon graft} {qty}{3}}
-    {11} {{name}{create light} {qty}{3}}
-    {12} {{name}{spiritgrasp} {qty}{2}}   
+	{10} {{name}{daemon graft} {qty}{3}}
+	{11} {{name}{create light} {qty}{3}}
+	{12} {{name}{spiritgrasp} {qty}{2}}   
 	{13} {{name}{dream} {qty}{600}}
 }
 
