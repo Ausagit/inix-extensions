@@ -1,8 +1,8 @@
 #class {necropowers} {open}
 
 /* 
-	V1.0
 	Edit this list in descending order of priority (1 = highest) for studyall.
+	Add or remove as many powers as desired, this list is just an example.
 	A Qty over 100 will be studied in blocks of 100 automatically.
 	Name is all lowercase and must match exactly what you see 
 	power listing. If you the qty memorised (or more) it's skipped.
