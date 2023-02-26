@@ -3,6 +3,12 @@ Make sure you backup your bot_load.tin file before making any changes.
 
 Drop the charname_scalers.tin file into the .tt/3k/char/ folder and rename it to match your character, e.g. inix_scalers.tin.
 
+Add the following line to start.tin's load3k alias:
+```
+#read .tt/3k/bots/bot_scale.tin;
+```
+
+
 Modify the '-' alias in bot_load.tin and add the following line:
 ```
 #if {$scalers_enabled && $botscalers[%1]} { scaler $botscalers[%1] }
