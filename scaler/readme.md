@@ -1,5 +1,13 @@
-Make sure you backup your bot_load.tin file before making any changes.
+Make sure you backup your bot_load.tin file before making any changes. 
 
+When making changes note that the last line in any {action} or {alias} should not have a trailing ;, e.g.
+```
+#action {test} {
+line1;
+line2;
+line3
+}
+```
 
 Drop the charname_scalers.tin file into the .tt/3k/char/ folder and rename it to match your character, e.g. inix_scalers.tin.
 
