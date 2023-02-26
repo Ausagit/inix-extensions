@@ -1,0 +1,82 @@
+#class {scalers} {kill}
+#class {scalers} {read} {.tt/char/$ses_name-scalers.tin}
+
+#class {bot_scale} {kill}
+#class {bot_scale} {open}
+
+#variable {scalers_enabled} {1}
+
+/* Set the scaler for the area, e.g. setscaler chess 50 */
+#alias {scaleset}
+{
+    #if {%2}
+    {
+        #variable {botscalers[%1]} {%2};
+        #class {scalers} {write} {.tt/char/$ses_name-scalers.tin};
+        #echo {Dungeon %1 scaler set to %2.}
+    } {
+        #echo {Invalid arguments.}
+    }
+}
+
+#alias {scalerem}
+{
+	#unvariable {botscalers[%1]};
+	#class {scalers} {write} {.tt/char/$ses_name-scalers.tin};
+	#echo {Dungeon %1 scaler removed.}
+}
+
+/* Enable the automatic scaler when starting an area stepper */
+#alias {scaleon}
+{
+	#variable {scalers_enabled} {1};
+	#echo {Scalers enabled.}
+}
+
+/* Disable the automatic scaler when starting an area stepper */
+#alias {scaleoff}
+{
+	#variable {scalers_enabled} {0};
+	#echo {Scalers disabled.}
+}
+
+/* Set all scaler levels for currently configured areas */
+#alias {scaleall}
+{
+	#foreach {*botscalers[%*]} {name}
+	{
+		#variable {botscalers[$name]} {%1}
+	};
+	#class {scalers} {write} {.tt/char/$ses_name-scalers.tin};
+	#echo {Existing scalers set to %1.}
+}
+
+#alias {scalers}
+{
+	#echo {<228> +--------------------------+<088>};
+
+	#if {$scalers_enabled}
+	{
+		#echo {<228> |<138> Configured Scalers (on)  <228>|<088>}
+	} {
+		#echo {<228> |<138> Configured Scalers (off) <228>|<088>}
+	};
+	
+	#echo {<228> +--------------------------+<088>};
+	
+	#if {&{botscalers[]} == 0}
+	{
+		#echo {<228> |<178>      No scalers set      <228>|<088>};
+		#echo {<228> +--------------------------+<088>}
+	} {
+		#foreach {*botscalers[%*]} {name}
+		{
+			#format {scv} {%-3d} {$botscalers[$name]};
+			#format {scn} {%-18s} {$name};
+			#echo {<228> |<148> $scv - $scn <088><228>|<088>}
+		};
+		#echo {<228> +--------------------------+<088>}
+	}
+}
+
+#class {bot_scale} {close}
