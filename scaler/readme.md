@@ -2,10 +2,13 @@ Make sure you backup your bot_load.tin file before making any changes.
 
 
 Drop the charname_scalers.tin file into the .tt/3k/char/ folder and rename it to match your character, e.g. inix_scalers.tin.
-Modify the '-' alias in bot_load.tin and add the following line:
-#if {$scalers_enabled && $botscalers[%1]} { scaler $botscalers[%1] }
 
+Modify the '-' alias in bot_load.tin and add the following line:
+```
+#if {$scalers_enabled && $botscalers[%1]} { scaler $botscalers[%1] }
+```
 It should now look like this:
+```
 #alias {- %1} {
 	#var no_home 0;
 	#var no_loop 0;
@@ -21,22 +24,15 @@ It should now look like this:
 		#if {$scalers_enabled && $botscalers[%1]} { scaler $botscalers[%1] }
 	}
 }
+```
 
+Commands
+- 'scalers' to view your configured scalers
+- 'scaleset <steppername> <level>' to set the scaler level for each stepper
+- 'scalerem <steppername>' to remove the scaler level for the specified stepper
+- 'scaleall <level>' to set all your scaler levels for any stepper which has previously been configured (it won't automatically add stepper names)
+- 'scaleoff' to turn off the automatic scaling when starting a stepper
+- 'scaleon' to turn on the automatic scaling when starting a stepper
 
-'scalers' to view your configured scalers
-
-'scaleset <steppername> <level>' to set the scaler level for each stepper
-
-'scalerem <steppername>' to remove the scaler level for the specified stepper
-  
-'scaleall <level>' to set all your scaler levels for any stepper which has previously been configured (it won't automatically add stepper names)
-  
-'scaleoff' to turn off the automatic scaling when starting a stepper
-  
-'scaleon' to turn on the automatic scaling when starting a stepper
-  
-
-The 'bc' command and the area cycle pane will update to show the configured scaler value in brackets
-  
 
 Enjoy!
