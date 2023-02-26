@@ -2,7 +2,7 @@ Make sure you backup your bot_load.tin file before making any changes.
 
 When making changes note that the last line in any {action} or {alias} should not have a trailing ;, e.g.
 ```
-#action {test} {
+#alias {test} {
 line1;
 line2;
 line3
